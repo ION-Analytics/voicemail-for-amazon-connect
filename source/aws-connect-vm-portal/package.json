@@ -31,8 +31,7 @@
         "redux": "^4.0.4",
         "redux-thunk": "^2.3.0",
         "request": "^2.88.0",
-        "request-promise": "^4.2.4",
-        "typescript": "^3.6.4"
+        "request-promise": "^4.2.4"
     },
     "scripts": {
         "build": "sh -ac '. ./env/.env.prod; npx react-scripts build'",
@@ -61,6 +60,7 @@
         "command-line-args": "^5.1.1",
         "command-line-usage": "^6.0.2",
         "remote-redux-devtools": "^0.5.16",
-        "replace-in-file": "^5.0.2"
+        "replace-in-file": "^5.0.2",
+        "typescript": "^4.9.3"
     }
 }

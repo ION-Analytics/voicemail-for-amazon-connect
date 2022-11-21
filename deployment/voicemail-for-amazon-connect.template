@@ -25,11 +25,12 @@ Description: (SO0094) - Solution - Master Template - This template creates all t
  
 Parameters:
     AmazonConnectInstanceId:
+      Default: ""
       Type: String
       Description: Your Amazon Connect Instance Id
       AllowedPattern: ^([0-9a-f]){8}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){4}-([0-9a-f]){12}$
     AvailableSMSCountries:
-      Default: "us,ca"
+      Default: "us,uk"
       Type: String
       Description: List of regions delineated  by commas available for SMS messages when voicemail transcripts are sent.
     AdminEmail:
@@ -39,10 +40,10 @@ Parameters:
         The administrator email for the Amazon Connect Voicemail Portal. Please make sure that is is a valid email.
         An email will be sent to this address with the temporary password
     AdminFirstName:
-      Default: Jane
+      Default: ""
       Type: String
     AdminLastName:
-      Default: Doe
+      Default: ""
       Type: String
     ManagerEmail:
       Default: ""
@@ -52,10 +53,10 @@ Parameters:
         An email will be sent to this address with the temporary password.  Managers cannot change the global voicemail
         encryption and transcription settings
     ManagerFirstName:
-      Default: John
+      Default: ""
       Type: String
     ManagerLastName:
-      Default: Doe
+      Default: ""
       Type: String
     DeliveryEmail:
       Default: ""
@@ -68,11 +69,12 @@ Parameters:
       Description: The amount of time the encrypted url for audio recording should be valid for before it expires (seconds).
     IsSamlInstance:
       Description: Set to true if you are using Saml for your Amazon Connect instance.
-      Default: false
+      Default: true
       Type: String
       AllowedValues: [true, false]
  
     UserPoolDomainPrefix:
+      Default: "iona-voicemail-user-pool"
       Type: String
       Description: Domain prefix to assign to the cognito user pool. This must be unique.
       AllowedPattern: ^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$
@@ -137,7 +139,7 @@ Resources:
       Type: AWS::CloudFormation::Stack
       Properties:
         TemplateURL: !Sub [
-            "https://${x0}-reference.s3.amazonaws.com/${x1}/copy-artifacts.template", {
+            "https://${x0}-eu-west-2.s3.amazonaws.com/${x1}/copy-artifacts.template", {
                 x0: !FindInMap [
                     "SourceCode",
                     "General",
@@ -176,7 +178,7 @@ Resources:
       DependsOn: CopyLambdaArtifactsStack
       Properties:
         TemplateURL: !Sub [
-            "https://${x0}-reference.s3.amazonaws.com/${x1}/aws-connect-vm.template", {
+            "https://${x0}-eu-west-2.s3.amazonaws.com/${x1}/aws-connect-vm.template", {
                 x0: !FindInMap [
                     "SourceCode",
                     "General",
@@ -222,7 +224,7 @@ Resources:
       DependsOn: VoicemailStack
       Properties:
         TemplateURL: !Sub [
-            "https://${x0}-reference.s3.amazonaws.com/${x1}/cloudfront.template", {
+            "https://${x0}-eu-west-2.s3.amazonaws.com/${x1}/cloudfront.template", {
                 x0: !FindInMap [
                     "SourceCode",
                     "General",
